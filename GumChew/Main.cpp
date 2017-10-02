@@ -1,11 +1,28 @@
 #include <SFML/Graphics.hpp>
 
-bool keyPressed(sf::Keyboard::Key key) {
+enum WindowAction
+{
+	None,
+	Closed,
+	Resized
+};
+
+bool keyDown(sf::Keyboard::Key key) {
 	return sf::Keyboard::isKeyPressed(key);
 }
 
 bool handleInput() {
-	if (keyPressed(sf::Keyboard::A)) {
+	if (keyDown(sf::Keyboard::A)) {
+		return true;
+	}
+	return false;
+}
+
+bool handleWindowEvents(sf::RenderWindow *app, sf::Event lastEvent) {
+	switch (lastEvent.type)
+	{
+	case sf::Event::Closed:
+		app->close();
 		return true;
 	}
 	return false;
@@ -41,7 +58,11 @@ int main() {
 
 		app->pollEvent(lastEvent);
 
-		if (keyPressed(sf::Keyboard::Escape)) {
+		if (handleWindowEvents(app, lastEvent)) {
+			running = false;
+		}
+
+		if (keyDown(sf::Keyboard::Escape)) {
 			running = false;
 		}
 
