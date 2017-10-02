@@ -1,6 +1,7 @@
-.vs/**
-**.exe
-**.log
-**.tlog
-**.*db
-
+.vs
+*.exe
+*.log
+*.tlog
+*.db
+Debug
+GumChew/Debug
